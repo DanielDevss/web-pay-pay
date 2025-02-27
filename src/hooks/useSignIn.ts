@@ -3,6 +3,7 @@ import { InputsAuthType } from "@/types/user.types"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 
 const useSignIn = () => {
 
@@ -19,9 +20,20 @@ const useSignIn = () => {
             endpoint: "auth",
             data,
             credentials: true,
-            onFinish: () => setPending(false),
-            onSuccess: () => navigate("/administrador")
+            onFinish: (response : { message: string } | null) => {
+              if(response?.message) {
+                toast.message(response.message)
+              }
+              setPending(false)
+            },
+            onSuccess: () => {
+              navigate("/administrador")
+            },
+            onError: (error) => {
+              console.log(error)
+            }
         })
+
     }
 
   return {

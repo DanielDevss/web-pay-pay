@@ -33,7 +33,12 @@ const useSignUp = () => {
             endpoint: "user",
             data: data,
             onSuccess: () => navigate("/iniciar-sesion"),
-            onFinish: () => setPending(false)
+            onFinish: (response : { message: string } | null) => {
+                if(response?.message) {
+                    toast(response.message)
+                }
+                setPending(false)
+            }
         })
 
     }

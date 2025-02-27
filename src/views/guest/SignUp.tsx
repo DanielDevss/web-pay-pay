@@ -43,12 +43,19 @@ const SignUp = () => {
 
         <Field
           {...register("phone")}
-          className="col-span-2"
           type="tel"
           id="phone"
           placeholder="Ingresa tu número de teléfono"
         >
           Número de teléfono
+        </Field>
+
+        <Field
+          {...register("rfc")}
+          id="rfc"
+          placeholder="Ingresa tu RFC"
+        >
+          Ingresa tu RFC
         </Field>
 
         <div className="col-span-2">

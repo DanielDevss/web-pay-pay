@@ -16,17 +16,21 @@ const Profile = () => {
     processingBank,
     bankAccount,
     handleEnabledCharges,
-    processingChargesEnabled
+    processingChargesEnabled,
+    handleSubmitUpdate,
+    processingUpdate
   } = useAccount()
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-4">
       <BadgesEnables 
-        charges_enable={userData?.charges_enable} 
-        payouts_enable={userData?.payouts_enable} 
+        charges_enable={userData?.charges_enabled} 
+        payouts_enable={userData?.payouts_enabled} 
       />
 
       <CardInformation 
+        handleSubmit={handleSubmitUpdate}  
+        processing={processingUpdate}
         userData={userData} 
       />
 

@@ -34,6 +34,33 @@ const useAccount = () => {
 
     const [ processingChargesEnabled, setProcessingChargesEnabled ] = useState(false)
 
+    // Actualizar profile
+
+    const [ processingUpdate, setProcessingUpdate ] = useState(false)
+
+    // region Actualizar cuenta
+
+    const handleSubmitUpdate = async(e : FormEventType) => {
+      e.preventDefault()
+      const formData = new FormData(e.target as HTMLFormElement)
+      const objectData = Object.fromEntries(formData)
+      setProcessingUpdate(true)
+
+      await fetching({
+        endpoint: "user/",
+        method: "PUT",
+        credentials: true,
+        data: objectData,
+        onSuccess: (response : { message: string } | null) => {
+          if(response?.message) {
+            toast.success(response.message)
+          }
+        }
+      })
+
+      setProcessingUpdate(false)
+    }
+
     // region Habilitar cargos
 
     const handleEnabledCharges = async(e : FormEventType) => {
@@ -105,11 +132,9 @@ const useAccount = () => {
         data: {...objectData, holder_type: "individual"},
         credentials: true,
         onSuccess: async(response : { message: string, status: number }) => {
-          if(response.status == 200) {
+          if(response.message){
             toast.success(response.message)
             setBankAccount(await getBankAccount())
-          }else{
-            toast.warning(response.message)
           }
         },
       })
@@ -194,6 +219,8 @@ const useAccount = () => {
     bankAccount,
     handleEnabledCharges,
     processingChargesEnabled,
+    handleSubmitUpdate,
+    processingUpdate,
   }
 }
 

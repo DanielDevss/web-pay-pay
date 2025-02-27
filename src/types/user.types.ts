@@ -4,7 +4,16 @@ export type InputsCreateUserType = {
     email : string
     phone : string
     password : string
+    rfc: string
     confirmPassword : string
+}
+
+export type InputsUpdateUserType = {
+    firstName : string
+    lastName : string
+    email : string
+    phone : string
+    rfc: string
 }
 
 export type InputsAuthType = {
@@ -13,14 +22,14 @@ export type InputsAuthType = {
 }
 
 export type UserDataType = {
-    charges_enable : boolean
-    payouts_enable : boolean
+    charges_enabled : boolean
+    payouts_enabled : boolean
     documentsSent: boolean
     firstName: string
     lastName: string
     email: string
     phone: string
-    rfc?: string
+    rfc: string
     status: string
     username: string
 }
