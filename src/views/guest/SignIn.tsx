@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import Field from "../../components/form/Field"
 import { Button } from "../../components/ui/button"
 import useSignIn from "@/hooks/useSignIn"
+import useDocumentTitle from "@/hooks/useDocumentTitle"
 
 const SignIn = () => {
 
@@ -11,6 +12,8 @@ const SignIn = () => {
     onSubmit,
     pending
   } = useSignIn()
+
+  useDocumentTitle('iniciar sesión')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">

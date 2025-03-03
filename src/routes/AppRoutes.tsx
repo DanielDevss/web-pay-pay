@@ -9,6 +9,8 @@ import DashboardHome from "../views/DashboardHome"
 import Profile from "../views/profile/Profile"
 import Keys from "../views/keys/Keys"
 import AuthProvider from "@/providers/AuthProvider"
+import Payments from "@/views/payments/Payments"
+import Checkout from "@/views/checkout/Checkout"
 
 const AppRoutes = () => {
   return (
@@ -29,7 +31,11 @@ const AppRoutes = () => {
           <Route element={<DashboardHome />} index />
           <Route element={<Profile />} path="perfil" />
           <Route element={<Keys />} path="llaves" />
+          <Route element={<Payments />} path="historial-de-pagos" />
         </Route>
+
+      {/* Checkout */}
+      <Route path="/checkout/:id" element={<Checkout />} />
     </Routes>
   )
 }

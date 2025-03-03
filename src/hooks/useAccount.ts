@@ -14,203 +14,218 @@ type FormEventType = FormEvent<HTMLFormElement>
 
 const useAccount = () => {
 
-    // region Hooks
+  // region Hooks
 
-    const [ userData, setUserData ] = useState<UserDataType|undefined>()
+  const [userData, setUserData] = useState<UserDataType | undefined>()
 
-    // Documentos de identificacion
+  const [loading, setLoading] = useState(true);
 
-    const [ identify, setIdentify ] = useState<IdentifyState>({ front: null, back: null })
+  // Documentos de identificacion
 
-    const [ processingDocs, setProcessingDocs ] = useState(false)
+  const [identify, setIdentify] = useState<IdentifyState>({ front: null, back: null })
 
-    // Cuenta bancaria
+  const [processingDocs, setProcessingDocs] = useState(false)
 
-    const [ bankAccount, setBankAccount ] = useState<BankDataType|undefined>()
+  // Cuenta bancaria
 
-    const [ processingBank, setProcessingBank ] = useState(false)
+  const [bankAccount, setBankAccount] = useState<BankDataType | undefined>()
 
-    // Cargos
+  const [processingBank, setProcessingBank] = useState(false)
 
-    const [ processingChargesEnabled, setProcessingChargesEnabled ] = useState(false)
+  const [updatingBank, setUpdatingBank] = useState(false)
 
-    // Actualizar profile
+  // Cargos
 
-    const [ processingUpdate, setProcessingUpdate ] = useState(false)
+  const [processingChargesEnabled, setProcessingChargesEnabled] = useState(false)
 
-    // region Actualizar cuenta
+  // Actualizar profile
 
-    const handleSubmitUpdate = async(e : FormEventType) => {
-      e.preventDefault()
-      const formData = new FormData(e.target as HTMLFormElement)
-      const objectData = Object.fromEntries(formData)
-      setProcessingUpdate(true)
+  const [processingUpdate, setProcessingUpdate] = useState(false)
 
-      await fetching({
-        endpoint: "user/",
-        method: "PUT",
-        credentials: true,
-        data: objectData,
-        onSuccess: (response : { message: string } | null) => {
-          if(response?.message) {
-            toast.success(response.message)
-          }
-        }
-      })
+  // region Actualizar cuenta
 
-      setProcessingUpdate(false)
-    }
+  const handleSubmitUpdate = async (e: FormEventType) => {
+    e.preventDefault()
+    const formData = new FormData(e.target as HTMLFormElement)
+    const objectData = Object.fromEntries(formData)
+    setProcessingUpdate(true)
 
-    // region Habilitar cargos
-
-    const handleEnabledCharges = async(e : FormEventType) => {
-      e.preventDefault();
-      const formData = new FormData(e.target as HTMLFormElement)
-      const objectData :  ChargeEnabledFormType = {
-        address: formData.get("address") as string,
-        state: formData.get("state") as string,
-        city: formData.get("city") as string,
-        postalCode: formData.get("postalCode") as string,
-        dob: formData.get("dob") as string,
-        web_url: formData.get("web_url") as string
-      };
-
-      if(Object.values(objectData).includes("")) {
-        return toast("Hacen falta campos.")
-      }
-
-      const dob = objectData.dob.split("-").map(item => parseInt(item));
-
-      const bodyData : ChargeEnabledBodyType = {
-        address: {
-          address: objectData.address,
-          state: objectData.state,
-          city: objectData.city,
-          postalCode: parseInt(objectData.postalCode),
-          country: "MX",
-        },
-        dob: {
-          year: dob[0],
-          month: dob[1],
-          day: dob[2]
-        },
-        business: {
-          url: objectData.web_url
+    await fetching({
+      endpoint: "user/",
+      method: "PUT",
+      credentials: true,
+      data: objectData,
+      onSuccess: (response: { message: string } | null) => {
+        if (response?.message) {
+          toast.success(response.message)
         }
       }
+    })
 
-      setProcessingChargesEnabled(true)
+    setProcessingUpdate(false)
+  }
 
-      await fetching({
-        endpoint: "user/charges-enable",
-        method: "POST",
-        credentials: true,
-        data: bodyData,
-        onSuccess: async(response: { message: string }) => {
-          toast.success(response.message);
-          const userData = await getUser();
-          setUserData(userData)
-        },
-      })
+  // region Habilitar cargos
 
-      setProcessingChargesEnabled(false)
+  const handleEnabledCharges = async (e: FormEventType) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement)
+    const objectData: ChargeEnabledFormType = {
+      address: formData.get("address") as string,
+      state: formData.get("state") as string,
+      city: formData.get("city") as string,
+      postalCode: formData.get("postalCode") as string,
+      dob: formData.get("dob") as string,
+      web_url: formData.get("web_url") as string
+    };
+
+    if (Object.values(objectData).includes("")) {
+      return toast("Hacen falta campos.")
     }
 
-    // region Cuenta bancaria
+    const dob = objectData.dob.split("-").map(item => parseInt(item));
 
-    const handleSaveBankAccount = async(e: FormEventType) => {
+    const bodyData: ChargeEnabledBodyType = {
+      address: {
+        address: objectData.address,
+        state: objectData.state,
+        city: objectData.city,
+        postalCode: objectData.postalCode,
+        country: "MX",
+      },
+      dob: {
+        year: dob[0],
+        month: dob[1],
+        day: dob[2]
+      },
+      business: {
+        url: objectData.web_url
+      }
+    }
 
-      e.preventDefault()
-      setProcessingBank(true)
-      
-      const formData = new FormData(e.target as HTMLFormElement);
-      const objectData = Object.fromEntries(formData);
-      
-      await fetching({
-        endpoint: "user/bank",
+    setProcessingChargesEnabled(true)
+
+    await fetching({
+      endpoint: "user/charges-enable",
+      method: "POST",
+      credentials: true,
+      data: bodyData,
+      onSuccess: async (response: { message: string }) => {
+        toast.success(response.message);
+        const userData = await getUser();
+        setUserData(userData)
+      },
+    })
+
+    setProcessingChargesEnabled(false)
+  }
+
+  // region Cuenta bancaria
+
+  const handleSaveBankAccount = async (e: FormEventType) => {
+
+    e.preventDefault()
+    setProcessingBank(true)
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const objectData = Object.fromEntries(formData);
+
+    await fetching({
+      endpoint: "user/bank",
+      method: updatingBank ? "PUT" : "POST",
+      data: updatingBank ? objectData : { ...objectData, holder_type: "individual" },
+      credentials: true,
+      onSuccess: async (response: { message: string, status: number }) => {
+        if (response.message) {
+          toast.success(response.message)
+          setBankAccount(await getBankAccount())
+        }
+      },
+    })
+
+    setProcessingBank(false)
+  }
+
+  const handleToggleUpdateBank = () => setUpdatingBank(prev => !prev)
+
+  // region Subir documentos
+
+  const handleUploadIdentify = async (e: FormEventType) => {
+    e.preventDefault()
+
+    if (!identify.back || !identify.front) {
+      toast.warning("La información que intentas enviar está incompleta.")
+      return
+    }
+
+    setProcessingDocs(true)
+
+    try {
+
+      const formData = new FormData();
+      formData.append("front", identify.front)
+      formData.append("back", identify.back)
+
+      const result = await fetch(`${import.meta.env.VITE_API_URI}user/upload-identity-files`, {
         method: "POST",
-        data: {...objectData, holder_type: "individual"},
-        credentials: true,
-        onSuccess: async(response : { message: string, status: number }) => {
-          if(response.message){
-            toast.success(response.message)
-            setBankAccount(await getBankAccount())
-          }
-        },
+        body: formData,
+        credentials: "include",
       })
 
-      setProcessingBank(false)
+      const resjson: { message?: string } = await result.json()
+
+      if (result.status === 200) {
+        toast.success(resjson.message);
+        const data: UserDataType | undefined = await getUser()
+        setUserData(data)
+      } else {
+        toast.warning(resjson.message);
+      }
+    } catch (error) {
+      const errorMessage = (error as Error).message
+      toast.error(errorMessage)
+    }
+
+    setProcessingDocs(false)
+  }
+
+  const handleFileIdentifyChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target
+    if (!files || files.length === 0) return
+
+    setIdentify(prev => ({
+      ...prev,
+      [name]: files[0]
+    }))
+  }
+
+  // region Obtener información
+
+  useEffect(() => {
+    const getBank = async () => {
+      setBankAccount(await getBankAccount())
     }
     
-    // region Subir documentos
-
-    const handleUploadIdentify = async (e: FormEventType) => {
-      e.preventDefault()
-
-      if(!identify.back || !identify.front) {
-        toast.warning("La información que intentas enviar está incompleta.")
-        return
-      }
-
-      setProcessingDocs(true)
-
-      try {
-        
-        const formData = new FormData();
-        formData.append("front", identify.front)
-        formData.append("back", identify.back)
-        
-        const result = await fetch(`${import.meta.env.VITE_API_URI}user/upload-identity-files`, {
-          method: "POST",
-          body: formData,
-          credentials: "include",
-        })
-
-        const resjson : { message?: string } = await result.json()
-        
-        if(result.status === 200) {
-          toast.success(resjson.message);
-          const data : UserDataType | undefined = await getUser()
-          setUserData(data)
-        }else{
-          toast.warning(resjson.message);
-        }
-      } catch (error) {
-        const errorMessage = (error as Error).message
-        toast.error(errorMessage)
-      }
-
-      setProcessingDocs(false)
+    const getProfile = async () => {
+      const data = await getUser()
+      setUserData(data)
     }
 
-    const handleFileIdentifyChange = (e : ChangeEvent<HTMLInputElement>) => {
-      const {name, files} = e.target
-      if(!files || files.length === 0) return
-
-      setIdentify(prev => ({
-        ...prev,
-        [name]: files[0]
-      }))
+    const getFullData = async() => {
+      await getProfile()
+      await getBank()
+      setLoading(false)
     }
 
-    // region Obtener información
+    getFullData()
+  }, []);
 
-    useEffect(() => {
-        const getProfile = async() => {
-            setUserData(await getUser())
-        }
-        getProfile()
-    }, []);
 
-    useEffect(() => {
-      const getBank = async() => {
-        setBankAccount(await getBankAccount())
-      }
-      getBank()
-    }, []);
+  // region Retornar
 
   return {
     userData,
+    loading,
     handleFileIdentifyChange,
     handleUploadIdentify,
     processingDocs,
@@ -221,6 +236,8 @@ const useAccount = () => {
     processingChargesEnabled,
     handleSubmitUpdate,
     processingUpdate,
+    handleToggleUpdateBank,
+    updatingBank,
   }
 }
 

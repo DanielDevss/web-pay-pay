@@ -7,7 +7,7 @@ import { toast } from "sonner";
 const useKey = () => {
 
     const [keys, setKeys] = useState<KeyDataType[] | null>(null);
-    const [pending, setPending] = useState(true)
+    const [loading, setLoading] = useState(true)
     const [processing, setProcessing] = useState(false)
     const [openDialog, setOpenDialog] = useState<boolean>(false)
     const [openAlertDelete, setOpenAlertDelete] = useState(false)
@@ -110,7 +110,7 @@ const useKey = () => {
         const getKeys = async () => {
             const data = await getKeysData()
             setKeys(data)
-            setPending(false)
+            setLoading(false)
         }
 
         getKeys()
@@ -118,7 +118,7 @@ const useKey = () => {
 
     return {
         keys,
-        pending,
+        loading,
         processing,
         handleOpenCreate,
         handleOpenUpdate,

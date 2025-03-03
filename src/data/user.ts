@@ -8,7 +8,6 @@ export const getUser = async() => {
         credentials: true,
         endpoint: 'user'
     })
-
     return result?.data || undefined
 }
 

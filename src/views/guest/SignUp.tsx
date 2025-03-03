@@ -4,8 +4,11 @@ import Field from "../../components/form/Field"
 import { Button } from "../../components/ui/button"
 import { CardDescription } from "../../components/ui/card"
 import useSignUp from "../../hooks/useSignUp"
+import useDocumentTitle from "@/hooks/useDocumentTitle"
 
 const SignUp = () => {
+
+  useDocumentTitle('Crear una cuenta')
 
   const { register, handleSubmit, onSubmit, pending, showPasswords, handleTogglePasswords, handleAcceptTerms } = useSignUp()
 

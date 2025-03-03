@@ -5,19 +5,31 @@ import { UserDataType } from '@/types/user.types'
 import FormBankAccount from './FormBankAccount'
 import { FormEvent } from 'react'
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
+import Alert from '@/components/Alert'
+import { Info } from 'lucide-react'
 
 type CardBankAccountType = {
     userData?: UserDataType
     bankData?: BankDataType
     handleStore: (event: FormEvent<HTMLFormElement>) => void
-    processing: boolean
+    processing: boolean,
+    updating: boolean,
+    onToggleUpdate: () => void
 }
 
-const CardBankAccount = ({ userData, bankData, handleStore, processing }: CardBankAccountType) => {
+const CardBankAccount = ({ userData, bankData, handleStore, processing, updating, onToggleUpdate }: CardBankAccountType) => {
 
-    if (!userData?.documentsSent) return
 
-    if(!bankData) return <FormBankAccount processing={processing} handleSubmit={handleStore} />
+    if (!userData?.documentsSent) return <Alert icon={Info} title='Información incompleta'>Completa tu información de cuenta para poder agregar una cuenta bancaria</Alert>
+
+    if(!bankData || updating) return (
+        <FormBankAccount 
+            onToggleUpdate={onToggleUpdate} 
+            processing={processing} 
+            handleSubmit={handleStore} 
+            updating={updating} 
+        />
+    )
 
     return (
         <>
@@ -46,7 +58,7 @@ const CardBankAccount = ({ userData, bankData, handleStore, processing }: CardBa
                     </Table>
                 </CardContent>
                 <CardFooter>
-                    <Button variant="outline">
+                    <Button onClick={onToggleUpdate}>
                         Actualizar cuenta
                     </Button>
                 </CardFooter>

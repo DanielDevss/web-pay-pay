@@ -8,6 +8,14 @@ export type InputsCreateUserType = {
     confirmPassword : string
 }
 
+export type companyAddressType = {
+    city: string
+    address: string
+    postalCode: string
+    state: string
+    web_url: string
+  }
+
 export type InputsUpdateUserType = {
     firstName : string
     lastName : string
@@ -32,16 +40,11 @@ export type UserDataType = {
     rfc: string
     status: string
     username: string
+    address: companyAddressType
 }
 
 export type ChargeEnabledBodyType = {
-    address: {
-        address: string
-        postalCode: number
-        state: string
-        city: string
-        country: string
-    }
+    address: Omit<companyAddressType, "web_url"> & { country: string },
     dob: {
         day: number
         month: number
@@ -54,10 +57,5 @@ export type ChargeEnabledBodyType = {
 
 
 export type ChargeEnabledFormType = {
-    address: string,
-    state: string,
-    city: string,
-    postalCode: string,
     dob: string
-    web_url: string
-}
+}& companyAddressType

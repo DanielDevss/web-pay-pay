@@ -1,4 +1,4 @@
-import { Key, UserRoundCog } from "lucide-react";
+import { History, Key, UserRoundCog } from "lucide-react";
 
 export const paths = [
     {
@@ -10,5 +10,10 @@ export const paths = [
         label : "Cuenta",
         path : "/administrador/perfil",
         icon : UserRoundCog
-    }
+    },
+    {
+        label : "Historial de pagos",
+        path : "/administrador/historial-de-pagos",
+        icon : History
+    },
 ]

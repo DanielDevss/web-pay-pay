@@ -4,15 +4,17 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { statesOptions } from "@/data/countryStates"
+import { companyAddressType } from "@/types/user.types"
 import { ArrowRight, Loader } from "lucide-react"
 import { FormEvent } from "react"
 
 type FormChargesEnabledProps = {
     handleSubmit : (event : FormEvent<HTMLFormElement>) => void
     processing: boolean
+    address: companyAddressType
 }
 
-const FormChargesEnabled = ({ handleSubmit, processing } : FormChargesEnabledProps) => {
+const FormChargesEnabled = ({ handleSubmit, processing, address } : FormChargesEnabledProps) => {
     return (
         <form onSubmit={handleSubmit}>
             <Card>
@@ -26,6 +28,7 @@ const FormChargesEnabled = ({ handleSubmit, processing } : FormChargesEnabledPro
                         <Field
                             placeholder="Ingresa tu dirección de facturación."
                             required
+                            defaultValue={address?.address || ""}
                             name="address"
                             id="address"
                         >
@@ -34,6 +37,7 @@ const FormChargesEnabled = ({ handleSubmit, processing } : FormChargesEnabledPro
                         <Field
                             id="postalCode"
                             name="postalCode"
+                            defaultValue={address?.postalCode || ""}
                             placeholder="Ingresa tu código postal"
                             required
                         >
@@ -42,6 +46,7 @@ const FormChargesEnabled = ({ handleSubmit, processing } : FormChargesEnabledPro
                         <Field
                             placeholder="Ingresa el nombre de tu ciudad"
                             name="city"
+                            defaultValue={address?.city || ""}
                             id="city"
                             required
                         >
@@ -50,6 +55,7 @@ const FormChargesEnabled = ({ handleSubmit, processing } : FormChargesEnabledPro
                         <FieldSelect
                             placeholder="Selecciona un estado"
                             name="state"
+                            defaultValue={address?.state || ""}
                             id="state"
                             required
                             options={statesOptions}
@@ -62,12 +68,12 @@ const FormChargesEnabled = ({ handleSubmit, processing } : FormChargesEnabledPro
 
                     <fieldset className="flex flex-col gap-6">
                         <Field required name="dob" id="dob" type="date">Selecciona tu fecha de nacimiento</Field>
-                        <Field required name="web_url" placeholder="Ingresa la dirección web de tu negocio" id="web_url" type="url">Dirección de tu web</Field>
+                        <Field defaultValue={address.web_url || ""} required name="web_url" placeholder="Ingresa la dirección web de tu negocio" id="web_url" type="url">Dirección de tu web</Field>
                     </fieldset>
                 </CardContent>
 
                 <CardFooter className="flex justify-end">
-                    <Button variant="outline" disabled={processing}>
+                    <Button disabled={processing}>
                         {processing && <Loader className="animate-spin" />}
                         {processing ? "Enviando información..." : "Habilitar cargos"}
                         {!processing && <ArrowRight />}

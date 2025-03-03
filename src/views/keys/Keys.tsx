@@ -5,11 +5,14 @@ import useKey from "@/hooks/useKey"
 import FormKey from "./partials/FormKey"
 import AlertDelete from "./partials/AlertDelete"
 import EmptyData from "@/components/EmptyData"
+import Loading from "@/components/Loading"
+import useDocumentTitle from "@/hooks/useDocumentTitle"
 
 const Keys = () => {
 
   const {
     keys, 
+    loading,
     handleOpenCreate, 
     openDialog, 
     handleCloseDialog, 
@@ -28,6 +31,10 @@ const Keys = () => {
     onDelete: handleOpenAlertDelete,
     onEdit: handleOpenUpdate
   })
+
+  useDocumentTitle("Registro de llaves")
+
+  if(loading) return <Loading />
 
   return (
     <>
