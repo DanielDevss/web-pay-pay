@@ -11,6 +11,7 @@ import Keys from "../views/keys/Keys"
 import AuthProvider from "@/providers/AuthProvider"
 import Payments from "@/views/payments/Payments"
 import Checkout from "@/views/checkout/Checkout"
+import Documentation from "@/views/Documentation"
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
       {/* Direcciones comunes */}
       <Route element={<Web />} path="/">
         <Route element={<Welcome />} index />
+        <Route element={<Documentation />} path="documentacion" />
       </Route>
 
       {/* Direccion de autenticación */}

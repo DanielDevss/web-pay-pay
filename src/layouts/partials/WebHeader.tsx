@@ -13,6 +13,11 @@ const WebHeader = () => {
                     </Link>
                 </Button>
                 <nav className="flex space-x-2 h-5 items-center">
+
+                    {/* Navegación */}
+                    <Button asChild variant="ghost">
+                        <NavLink to="/documentacion">Documentación</NavLink>
+                    </Button>
                     <Button asChild variant="ghost">
                         <NavLink to="/iniciar-sesion">Iniciar sesión</NavLink>
                     </Button>
@@ -20,8 +25,10 @@ const WebHeader = () => {
                         <NavLink to="/crear-cuenta">Crear cuenta</NavLink>
                     </Button>
 
+                    {/* Separador */}
                     <Separator orientation='vertical' />
 
+                    {/* Iconos de acciones */}
                     <ModeToggle />
                 </nav>
             </div>
