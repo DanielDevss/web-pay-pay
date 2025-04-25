@@ -5,6 +5,7 @@ import { Button } from "../../components/ui/button"
 import { CardDescription } from "../../components/ui/card"
 import useSignUp from "../../hooks/useSignUp"
 import useDocumentTitle from "@/hooks/useDocumentTitle"
+import { Loader2 } from "lucide-react"
 
 const SignUp = () => {
 
@@ -39,6 +40,7 @@ const SignUp = () => {
           className="col-span-2"
           type="email"
           id="email"
+          required
           placeholder="Ingresa tu correo electrónico"
         >
           Correo electrónico
@@ -49,6 +51,7 @@ const SignUp = () => {
           type="tel"
           id="phone"
           placeholder="Ingresa tu número de teléfono"
+          required
         >
           Número de teléfono
         </Field>
@@ -57,6 +60,7 @@ const SignUp = () => {
           {...register("rfc")}
           id="rfc"
           placeholder="Ingresa tu RFC"
+          required
         >
           Ingresa tu RFC
         </Field>
@@ -110,6 +114,7 @@ const SignUp = () => {
         <Button
           disabled={pending}
         >
+          {pending && <Loader2 className="animate-spin" />}
           {pending ? 'Cargando...' : 'Crear cuenta'}
         </Button>
 

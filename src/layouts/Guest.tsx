@@ -1,5 +1,4 @@
-import { Outlet } from "react-router-dom"
-import WebHeader from "./partials/WebHeader"
+import { Link, Outlet } from "react-router-dom"
 import Logotipo from "@/assets/images/moneypay.png"
 import { Toaster } from "../components/ui/sonner"
 
@@ -8,16 +7,17 @@ const Guest = () => {
 
     <div className="bg-primary-foreground min-h-screen grid place-content-center">
 
-      <WebHeader />
 
       <main className="max-w-3xl w-full min-w-xs py-20">
-        <picture>
-          <img 
-            className="h-36 mx-auto mb-5" 
-            src={Logotipo} 
-            alt="Logotipo de la pasarela" 
-          />
-        </picture>
+        <Link to={"/"}>
+          <picture>
+            <img 
+              className="h-36 mx-auto mb-5" 
+              src={Logotipo} 
+              alt="Logotipo de la pasarela" 
+            />
+          </picture>
+        </Link>
         <Outlet />
       </main>
 

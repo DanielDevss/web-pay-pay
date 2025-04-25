@@ -1,6 +1,6 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 import Web from "../layouts/Web"
-import Welcome from "../views/Welcome"
+// import Welcome from "../views/Welcome"
 import Guest from "../layouts/Guest"
 import SignIn from "../views/guest/SignIn"
 import SignUp from "../views/guest/SignUp"
@@ -12,20 +12,32 @@ import AuthProvider from "@/providers/AuthProvider"
 import Payments from "@/views/payments/Payments"
 import Checkout from "@/views/checkout/Checkout"
 import Documentation from "@/views/Documentation"
+import Payment from "@/views/payments/Payment"
+import { useEffect } from "react"
+import ForgotPassword from "@/views/guest/ForgotPassword"
+import PasswordReset from "@/views/guest/PasswordReset"
 
 const AppRoutes = () => {
+
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ behavior: "instant", top: 0 })
+  }, [location.pathname])
+
   return (
     <Routes>
       {/* Direcciones comunes */}
       <Route element={<Web />} path="/">
-        <Route element={<Welcome />} index />
-        <Route element={<Documentation />} path="documentacion" />
+        <Route index element={<Documentation />} />
       </Route>
 
       {/* Direccion de autenticación */}
       <Route element={<Guest />} path="/">
         <Route element={<SignIn />} path="/iniciar-sesion" />
         <Route element={<SignUp />} path="/crear-cuenta" />
+        <Route element={<ForgotPassword />} path="/recuperar-contrasena" />
+        <Route element={<PasswordReset />} path="/recuperar-contrasena/:id" />
       </Route>
 
       {/* Direcciones privadas y protegidas (dashboard) */}
@@ -34,6 +46,7 @@ const AppRoutes = () => {
           <Route element={<Profile />} path="perfil" />
           <Route element={<Keys />} path="llaves" />
           <Route element={<Payments />} path="historial-de-pagos" />
+          <Route element={<Payment />} path="historial-de-pagos/:id" />
         </Route>
 
       {/* Checkout */}

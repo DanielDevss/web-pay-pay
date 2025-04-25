@@ -1,23 +1,23 @@
 import { Separator } from '@/components/ui/separator'
 import { Button } from '../../components/ui/button'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { ModeToggle } from '@/components/mode-toggle'
+import { Book } from 'lucide-react'
 
 const WebHeader = () => {
     return (
-        <header className='fixed w-full top-0 left-0 right-0'>
+        <header className='w-full px-4 border-b'>
             <div className="flex justify-between items-center py-4 container mx-auto">
-                <Button asChild variant="ghost">
-                    <Link to="/">
-                        Inicio
-                    </Link>
-                </Button>
+                <nav>
+                    <Button asChild variant="ghost">
+                        <NavLink to="/">
+                            <Book /> Documentación
+                        </NavLink>
+                    </Button>
+                </nav>
+
                 <nav className="flex space-x-2 h-5 items-center">
 
-                    {/* Navegación */}
-                    <Button asChild variant="ghost">
-                        <NavLink to="/documentacion">Documentación</NavLink>
-                    </Button>
                     <Button asChild variant="ghost">
                         <NavLink to="/iniciar-sesion">Iniciar sesión</NavLink>
                     </Button>

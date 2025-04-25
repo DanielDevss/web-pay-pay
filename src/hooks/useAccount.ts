@@ -139,6 +139,8 @@ const useAccount = () => {
         if (response.message) {
           toast.success(response.message)
           setBankAccount(await getBankAccount())
+          const userData = await getUser();
+          setUserData(userData)
         }
       },
     })

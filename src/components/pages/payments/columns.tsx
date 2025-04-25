@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatFullDate, formatNumberToAmount } from "@/lib/formats";
 import { PaymentType } from "@/types/payments";
 import { ColumnDef } from "@tanstack/react-table";
-import { ListTodo } from "lucide-react";
+import { CheckCircle, Clock10, ListTodo, XCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const columns : ColumnDef<PaymentType>[] = [
@@ -18,9 +18,23 @@ export const columns : ColumnDef<PaymentType>[] = [
         id: 'Estado',
         accessorKey: 'status',
         cell: ({ row }) => {
-            const status = row.original.status.replace(/_/g, " ")
+            const status = row.original.status.replace(/_/g, " ") as keyof typeof statusIcons || "other"
+            const statusIcons = {
+                succeeded: CheckCircle,
+                canceled: XCircle,
+                other: Clock10
+            }
+            const colorStatus = {
+                succeeded: "text-green-500",
+                canceled: "text-red-500",
+                other: "text-gray-500",
+            }
+            const Icon = statusIcons[status] || statusIcons.other
             return (
-                <Badge variant={status == "canceled" ? "destructive" : "default"} className="capitalize">{status}</Badge>
+                <Badge variant={"outline"} className="capitalize">
+                    <Icon className={colorStatus[status]} />
+                    {status}
+                </Badge>
             )
         }
     },
@@ -53,7 +67,7 @@ export const columns : ColumnDef<PaymentType>[] = [
         cell: ({ row }) => {
             return (
                 <ActionRow>
-                    <ActionRow.Link to={`/historial-de-pagos/${row.original.id}`}>
+                    <ActionRow.Link to={`/administrador/historial-de-pagos/${row.original.id}`}>
                         <ListTodo />
                         Detalles del pago
                     </ActionRow.Link>

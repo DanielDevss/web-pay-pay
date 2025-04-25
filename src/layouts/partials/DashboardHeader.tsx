@@ -35,6 +35,7 @@ const DashboardHeader = () => {
                         <LogOut />
                     </Button>
                 </nav>
+                
             </header>
 
             <AlertDialog open={openLogout} onOpenChange={handleToggleLogout}>

@@ -1,37 +1,29 @@
-import Accordion from "@/components/Accordion";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
+import GettingStarted from "./documentation/GettingStarted";
+import Aside from "@/components/pages/documentation/Aside";
+import Payments from "./documentation/Payments";
 
 const Documentation = () => {
   useDocumentTitle("Documentación");
 
   return (
-    <article className="max-w-5xl mx-auto">
+    <article className="documentation mx-auto">
+
       <header className="font-bold text-xl mb-4">
         <h1>Documentación del API</h1>
       </header>
 
-        <Accordion>
-            <Accordion.Section title="Getting Started">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
-            aspernatur voluptatibus maiores inventore consequatur, suscipit nam
-            nobis doloribus impedit enim cupiditate, veniam similique atque ipsum.
-            Illo, placeat. Iste, pariatur veritatis.
-            </Accordion.Section>
+      <div className="grid grid-cols-4 gap-4 relative">
 
-            <Accordion.Section title="Obtener los pagos">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor rem
-            temporibus rerum excepturi ex? Perspiciatis sed sequi unde odio, nulla
-            cupiditate aliquid, natus suscipit iure minima voluptate soluta
-            obcaecati magnam.
-            </Accordion.Section>
+        <Aside />
 
-            <Accordion.Section title="Checkouts">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia,
-            voluptatem. Magnam nisi neque obcaecati esse minus voluptas? Sequi
-            esse odit dolore facere cumque voluptatum dolor, atque repellendus
-            similique asperiores debitis!
-            </Accordion.Section>
-        </Accordion>
+        <div className="col-span-3">
+          <GettingStarted />
+          <Payments />
+        </div>
+
+      </div>
+
     </article>
   );
 };

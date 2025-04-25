@@ -1,0 +1,1 @@
+export type FieldValidation = {field:string, message:string}

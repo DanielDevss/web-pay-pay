@@ -1,0 +1,16 @@
+export type TailwindColor =
+  | 'red'
+  | 'blue'
+  | 'green'
+  | 'yellow'
+  | 'purple'
+  | 'pink'
+  | 'indigo'
+  | 'gray'
+  | 'teal'
+  | 'amber'
+  | 'lime'
+  | 'cyan'
+  | 'rose'
+  | 'emerald'
+  | 'violet';

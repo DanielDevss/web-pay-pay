@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -121,4 +122,21 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                Documetacion                                */
+/* -------------------------------------------------------------------------- */
+
+.documentation {
+  @apply prose dark:prose-invert !max-w-7xl scroll-smooth relative top-0;
+}
+
+.documentation aside nav {
+  @apply top-4 sticky border rounded-2xl;
+}
+
+.documentation section img {
+  @apply border rounded-2xl;
 }

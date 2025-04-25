@@ -3,6 +3,7 @@ import Field from "../../components/form/Field"
 import { Button } from "../../components/ui/button"
 import useSignIn from "@/hooks/useSignIn"
 import useDocumentTitle from "@/hooks/useDocumentTitle"
+import { Loader2 } from "lucide-react"
 
 const SignIn = () => {
 
@@ -40,8 +41,9 @@ const SignIn = () => {
 
       <fieldset className="mt-7 w-full flex flex-col gap-2">
 
-        <Button type="submit" className="w-full">
-          {pending ? "Cargando..." : "Iniciar sesión"}
+        <Button type="submit" className="w-full" disabled={pending}>
+          {pending && <Loader2 className="animate-spin" />}
+          {pending ? "Comprobando..." : "Iniciar sesión"}
         </Button>
 
         <Button disabled={pending} type="button" variant="secondary" className="w-full" asChild>
@@ -51,7 +53,7 @@ const SignIn = () => {
         </Button>
 
         <Button type="button" variant="link" asChild>
-          <Link to="/">Olvide mi contraseña</Link>
+          <Link to="/recuperar-contrasena">Olvide mi contraseña</Link>
         </Button>
 
       </fieldset>

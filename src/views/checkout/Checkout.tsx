@@ -11,7 +11,7 @@ const Checkout = () => {
   useDocumentTitle("Realiza tu pago")
 
   return (
-    <div className="flex items-center justify-center flex-col h-screen">
+    <div className="flex items-center justify-center flex-col h-screen bg-amber-50 text-zinc-800">
       <Elements stripe={stripePromise}>
         <FormCheckout />
       </Elements>
