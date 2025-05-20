@@ -8,7 +8,7 @@ type BadgesEnablesProps = {
 
 const BadgesEnables = ({ charges_enable, payouts_enable } : BadgesEnablesProps) => {
     return (
-        <div className="flex items-center gap-2 mt-4">
+        <div className="flex items-center gap-2">
             <Badge variant={charges_enable ? "secondary" : "destructive"}>
                 {charges_enable
                     ? <><Check /> Cargos activos</>

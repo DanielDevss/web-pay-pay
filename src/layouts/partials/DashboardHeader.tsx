@@ -6,7 +6,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar"
 import { authContext } from "@/context/authContext"
 import { LogOut } from "lucide-react"
 import { useContext, useState } from "react"
-import { Link } from "react-router-dom"
+import DashboardBreadcrumbs from "./DashboardBreadcrumbs"
 
 const DashboardHeader = () => {
 
@@ -18,14 +18,12 @@ const DashboardHeader = () => {
 
     return (
         <>
-            <header className="items-center justify-between p-4 flex sticky top-0 border-b border-border bg-background z-10 w-full">
+            <header className="items-center justify-between px-4 py-6 flex sticky top-0 border-b border-border bg-background z-10 w-full">
 
                 <div className="h-4 flex space-x-2 items-center">
                     <SidebarTrigger />
                     <Separator orientation="vertical" />
-                    <h1 className="font-medium">
-                        <Link to="/administrador">Administrador</Link>
-                    </h1>
+                    <DashboardBreadcrumbs />
                 </div>
 
                 <nav className="flex items-center space-x-1 h-4">

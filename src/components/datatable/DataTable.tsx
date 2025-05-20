@@ -7,6 +7,7 @@ import {
   getSortedRowModel,
   useReactTable,
   VisibilityState,
+  getFilteredRowModel,
 } from "@tanstack/react-table"
 
 import {
@@ -26,36 +27,46 @@ import {
 } from "@/components/ui/dropdown-menu"
 import React, { ReactNode } from "react"
 import { Button } from "../ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Search, Sliders } from "lucide-react"
+import { Input } from "../ui/input"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   actions?: ReactNode
+  placeholder?: string
+  textEmpty?: string 
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   actions,
+  placeholder,
+  textEmpty,
 }: DataTableProps<TData, TValue>) {
 
   const [sorting, setSorting] = React.useState<SortingState>([])
 
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
+  const [globalFilter, setGlobalFilter] = React.useState("")
+
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
+    globalFilterFn: "includesString",
+    onGlobalFilterChange: setGlobalFilter,
     state: {
       columnVisibility,
       sorting,
+      globalFilter,
     }
   })
 
@@ -63,12 +74,25 @@ export function DataTable<TData, TValue>({
     <>
     <div className="mb-3 flex items-center space-x-2">
       <div className="flex items-center space-x-2">
+        <search className="max-w-sm w-full flex items-center relative">
+          <div className="absolute left-4 opacity-50">
+            <Search size={16} />
+          </div>
+          <Input 
+            className="w-full ps-10" 
+            placeholder={placeholder ? placeholder : "Buscar algo . . ."} 
+            value={globalFilter}
+            onChange={e => setGlobalFilter(e.target.value)}
+          />
+        </search>
+
         {actions}
       </div>
       <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columnas
+              <Sliders />
+              Visibilidad
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -133,7 +157,7 @@ export function DataTable<TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  {textEmpty || "Sin resultados"}
                 </TableCell>
               </TableRow>
             )}

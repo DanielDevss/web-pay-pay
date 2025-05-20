@@ -3,26 +3,28 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import DashboardHeader from "./partials/DashboardHeader"
 import DashboardSidebar from "./partials/DashboardSidebar"
 import { Toaster } from "@/components/ui/sonner"
-import DashboardBreadcrumbs from "./partials/DashboardBreadcrumbs"
 
 const Dashboard = () => {
   return (
-    <>
+    <div className="font-poppins">
       <SidebarProvider>
 
         <DashboardSidebar />
 
         <main className="w-full">
+          
           <DashboardHeader />
-          <DashboardBreadcrumbs />
-          <div className="p-4">
+          
+          <div className="px-4 pb-10 pt-5 max-w-6xl mx-auto">
             <Outlet />      
           </div>
+
         </main>
+
       </SidebarProvider>
 
       <Toaster position="top-right" duration={4000} closeButton />
-    </>
+    </div>
   )
 }
 

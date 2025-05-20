@@ -6,59 +6,55 @@ import FormKey from "./partials/FormKey"
 import AlertDelete from "./partials/AlertDelete"
 import EmptyData from "@/components/EmptyData"
 import Loading from "@/components/Loading"
-import useDocumentTitle from "@/hooks/useDocumentTitle"
+import Header from "@/components/Header"
 
 const Keys = () => {
 
   const {
-    keys, 
+    keys,
     loading,
-    handleOpenCreate, 
-    openDialog, 
-    handleCloseDialog, 
-    handleCreate, 
+    handleOpenCreate,
+    openDialog,
+    handleCloseDialog,
+    handleCreate,
     handleUpdate,
-    handleOpenUpdate, 
-    handleOpenAlertDelete, 
-    handleCloseAlertDelete, 
-    handleDelete, 
-    openAlertDelete, 
-    keyData, 
+    handleOpenAlertDelete,
+    handleCloseAlertDelete,
+    handleDelete,
+    openAlertDelete,
+    keyData,
     processing
   } = useKey()
 
   const columns = KeyColumns({
     onDelete: handleOpenAlertDelete,
-    onEdit: handleOpenUpdate
   })
 
-  useDocumentTitle("Registro de llaves")
-
-  if(loading) return <Loading />
+  if (loading) return <Loading />
 
   return (
     <>
+      <Header title="Llaves de acceso" text="Registros de bearer tokens para tu sistema">
+        <Button onClick={handleOpenCreate}>
+          Generar una llave
+        </Button>
+      </Header>
+
       {keys && keys.length > 0 ? (
         <DataTable
           data={keys!}
           columns={columns}
-          actions={(
-            <>
-              <Button onClick={handleOpenCreate}>
-                Generar una llave
-              </Button>
-            </>
-          )}
+          placeholder="Buscar proyecto . . ."
         />
       ) : (
-        <EmptyData 
-          text="No se encontró ninguna llave registrada en la base de datos. ¿Deseas agregar una?" 
-          onAction={handleOpenCreate} 
+        <EmptyData
+          text="No se encontró ninguna llave registrada en la base de datos. ¿Deseas agregar una?"
+          onAction={handleOpenCreate}
           actionLabel="Generar una llave"
         />
       )}
 
-      <AlertDelete 
+      <AlertDelete
         keyData={keyData}
         onDelete={handleDelete}
         onHide={handleCloseAlertDelete}

@@ -1,19 +1,59 @@
-import { History, Key, UserRoundCog } from "lucide-react";
+import { Flame, History, Key, LayoutPanelTop, ShieldAlert, UserRoundCog, Users } from "lucide-react";
 
 export const paths = [
     {
-        label : "Llaves de acceso",
-        path : "/administrador/llaves",
-        icon : Key
+        label: "Navegación",
+        childs: [
+            {
+                label: "Panel principal",
+                path: "/administrador/",
+                icon: LayoutPanelTop
+            },
+            {
+                label: "Historial de pagos",
+                path: "/administrador/historial-de-pagos",
+                icon: History
+            },
+        ],
     },
     {
-        label : "Cuenta",
-        path : "/administrador/perfil",
-        icon : UserRoundCog
+        label: "Catálogos",
+        childs: [
+            {
+                label: "Clientes",
+                path: "/administrador/historial-de-pagos",
+                icon: Users
+            },
+        ],
     },
     {
-        label : "Historial de pagos",
-        path : "/administrador/historial-de-pagos",
-        icon : History
+        label: "Desarrollador",
+        childs: [
+            {
+                label: "Api Keys",
+                path: "/administrador/llaves",
+                icon: Key
+            },
+            {
+                label: "Registros de errores",
+                path: "/administrador/llaves",
+                icon: Flame
+            },
+        ],
     },
+    {
+        label: "Ajustes",
+        childs: [
+            {
+                label: "Configuración de cuenta",
+                path: "/administrador/perfil",
+                icon: UserRoundCog
+            },
+            {
+                label: "Dispositivos",
+                path: "/administrador/perfil",
+                icon: ShieldAlert
+            },
+        ]
+    }
 ]

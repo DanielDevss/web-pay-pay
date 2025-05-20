@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Building, Landmark, User } from "lucide-react"
 import Loading from "@/components/Loading"
 import useDocumentTitle from "@/hooks/useDocumentTitle"
+import Header from "@/components/Header"
 
 const Profile = () => {
 
@@ -30,62 +31,67 @@ const Profile = () => {
 
   useDocumentTitle("Perfil")
 
-  if(loading) return <Loading />
+  if (loading) return <Loading />
 
   return (
-    <div className="max-w-2xl mx-auto flex flex-col gap-4">
-      <BadgesEnables
-      charges_enable={userData?.charges_enabled}
-        payouts_enable={userData?.payouts_enabled}
-      />
+    <>
+      <Header title="Configuración de cuenta" text="Actualiza la información de tu cuenta y tu negocio" />
 
-      <FormDocumentValidation
-        processing={processingDocs}
-        userData={userData}
-        handleSubmit={handleUploadIdentify}
-        handleChangeFile={handleFileIdentifyChange}
-      />
+      <div className="grid grid-cols-1 gap-5">
 
-      <Tabs defaultValue="main">
-        <TabsList className="space-x-2.5">
-          <TabsTrigger value="main"><User /> Detalles de perfil</TabsTrigger>
-          <TabsTrigger value="bussines"><Building /> Negocio</TabsTrigger>
-          <TabsTrigger value="bank"><Landmark />Cuenta Bancaria</TabsTrigger>
-        </TabsList>
+        <BadgesEnables
+          charges_enable={userData?.charges_enabled}
+          payouts_enable={userData?.payouts_enabled}
+        />
 
-        {/* Principal */}
-        <TabsContent value="main">
-          <CardInformation
-            handleSubmit={handleSubmitUpdate}
-            processing={processingUpdate}
-            userData={userData}
-          />
-        </TabsContent>
+        <FormDocumentValidation
+          processing={processingDocs}
+          userData={userData}
+          handleSubmit={handleUploadIdentify}
+          handleChangeFile={handleFileIdentifyChange}
+        />
 
-        {/* Dirección y cargos */}
-        <TabsContent value="bussines">
-          <FormChargesEnabled
-            address={userData!.address}
-            handleSubmit={handleEnabledCharges}
-            processing={processingChargesEnabled}
-          />
-        </TabsContent>
+        <Tabs defaultValue="main">
+          <TabsList className="space-x-2.5 mb-3">
+            <TabsTrigger className="px-4" value="main"><User /> Detalles de perfil</TabsTrigger>
+            <TabsTrigger className="px-4" value="bussines"><Building /> Negocio</TabsTrigger>
+            <TabsTrigger className="px-4" value="bank"><Landmark />Cuenta Bancaria</TabsTrigger>
+          </TabsList>
 
-        {/* Cuenta de banco */}
-        <TabsContent value="bank">
-          <CardBankAccount
-            onToggleUpdate={handleToggleUpdateBank}
-            updating={updatingBank}
-            bankData={bankAccount}
-            userData={userData}
-            handleStore={handleSaveBankAccount}
-            processing={processingBank}
-          />
-        </TabsContent>
+          {/* Principal */}
+          <TabsContent value="main">
+            <CardInformation
+              handleSubmit={handleSubmitUpdate}
+              processing={processingUpdate}
+              userData={userData}
+            />
+          </TabsContent>
 
-      </Tabs>
+          {/* Dirección y cargos */}
+          <TabsContent value="bussines">
+            <FormChargesEnabled
+              address={userData!.address}
+              handleSubmit={handleEnabledCharges}
+              processing={processingChargesEnabled}
+            />
+          </TabsContent>
 
-    </div>
+          {/* Cuenta de banco */}
+          <TabsContent value="bank">
+            <CardBankAccount
+              onToggleUpdate={handleToggleUpdateBank}
+              updating={updatingBank}
+              bankData={bankAccount}
+              userData={userData}
+              handleStore={handleSaveBankAccount}
+              processing={processingBank}
+            />
+          </TabsContent>
+
+        </Tabs>
+
+      </div>
+    </>
   )
 }
 
