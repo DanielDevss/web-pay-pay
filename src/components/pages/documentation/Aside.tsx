@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Aside = () => {
     return (
         <aside className="col-span-1">
