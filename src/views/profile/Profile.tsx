@@ -7,7 +7,6 @@ import FormChargesEnabled from "./partials/FormChargesEnabled"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Building, Landmark, User } from "lucide-react"
 import Loading from "@/components/Loading"
-import useDocumentTitle from "@/hooks/useDocumentTitle"
 import Header from "@/components/Header"
 
 const Profile = () => {
@@ -28,8 +27,6 @@ const Profile = () => {
     handleToggleUpdateBank,
     updatingBank
   } = useAccount()
-
-  useDocumentTitle("Perfil")
 
   if (loading) return <Loading />
 
