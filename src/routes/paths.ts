@@ -30,8 +30,8 @@ export const paths = [
         label: "Desarrollador",
         childs: [
             {
-                label: "Api Keys",
-                path: "/administrador/llaves",
+                label: "Llaves de acceso",
+                path: "/administrador/llaves-de-acceso",
                 icon: Key
             },
             {

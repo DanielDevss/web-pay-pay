@@ -48,7 +48,9 @@ export const columns : ColumnDef<PaymentType>[] = [
         header: 'Llave usada',
         id: 'Llave usada',
         accessorKey: 'keyName',
-        cell: ({ row }) => <Link className="hover:underline transition-all text-primary" to={`/llaves/${row.original.keyId}`}>{row.original.keyName}</Link>
+        cell: ({ row }) => {
+            return row.original.keyId ? <Link className="hover:underline transition-all text-primary" to={`/administrador/llaves-de-acceso/${row.original.keyId}`}>{row.original.keyName}</Link> : <span className="opacity-50">No aplica</span>
+        }
     },
     {
         header: 'Creado el',

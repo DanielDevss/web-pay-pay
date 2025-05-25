@@ -19,6 +19,7 @@ import PasswordReset from "@/views/guest/PasswordReset"
 import Devices from "@/views/devices/Devices"
 import Customers from "@/views/Customers/Customers"
 import ErrorLogs from "@/views/ErrorLogs/ErrorLogs"
+import KeyShow from "@/views/keys/KeyShow"
 
 const AppRoutes = () => {
 
@@ -47,7 +48,8 @@ const AppRoutes = () => {
         <Route element={<AuthProvider><Dashboard /></AuthProvider>} path="/administrador">
           <Route element={<DashboardHome />} index />
           <Route element={<Profile />} path="perfil" />
-          <Route element={<Keys />} path="llaves" />
+          <Route element={<Keys />} path="llaves-de-acceso" />
+          <Route element={<KeyShow />} path="llaves-de-acceso/:id" />
           <Route element={<Payments />} path="historial-de-pagos" />
           <Route element={<Payment />} path="historial-de-pagos/:id" />
           <Route element={<Devices />} path="dispositivos" />

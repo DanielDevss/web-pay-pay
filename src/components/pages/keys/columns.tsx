@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Trash } from "lucide-react";
+import { History, Trash } from "lucide-react";
 import { formatFullDate } from "@/lib/formats";
 import { KeyDataType } from "@/types/key.types";
 import ActionRow from "@/components/datatable/ActionRow";
@@ -47,14 +47,14 @@ const KeyColumns = ({ onDelete } : ColumnsProps) : ColumnDef<KeyDataType>[] => {
                 return (
                     <div className="flex justify-end">
                         <ActionRow>
-                            {/* <ActionRow.Button onClick={handleEdit}>
-                                <Edit />
-                                Editar
-                            </ActionRow.Button> */}
                             <ActionRow.Button onClick={handleDelete}>
                                 <Trash />
                                 Eliminar
                             </ActionRow.Button>
+                            <ActionRow.Link to={`/administrador/llaves-de-acceso/${row.original.id}`}>
+                                <History />
+                                Pagos registrados
+                            </ActionRow.Link>
                         </ActionRow>
                     </div>
                 )

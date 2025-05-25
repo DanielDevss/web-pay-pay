@@ -51,18 +51,20 @@ type ActionRowProps = {
 
 const ActionRow = ({ children } : ActionRowProps) => {
   return (
-    <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-            <Button size="icon" variant="ghost">
-                <MoreVertical />
-            </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-            <DropdownMenuGroup>
-                {children}
-            </DropdownMenuGroup>
-        </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex justify-end items-center">
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button size="icon" variant="ghost">
+                    <MoreVertical />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                <DropdownMenuGroup>
+                    {children}
+                </DropdownMenuGroup>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    </div>
   )
 }
 

@@ -1,7 +1,8 @@
-import { getKeysData } from "@/data/keys";
+import { getKeyData, getKeysData } from "@/data/keys";
 import fetching from "@/lib/fetching";
 import { KeyDataType, KeyFormType } from "@/types/key.types";
 import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const useKey = () => {
@@ -12,6 +13,10 @@ const useKey = () => {
     const [openDialog, setOpenDialog] = useState<boolean>(false)
     const [openAlertDelete, setOpenAlertDelete] = useState(false)
     const [keyData, setKeyData] = useState<KeyDataType | null>(null)
+
+    // region Obtener el ID
+
+    const { id } = useParams()
 
     // Actualizar Table
     const updateTable = async () => {
@@ -105,7 +110,9 @@ const useKey = () => {
         })
     }
 
-    // Cargar datos
+    // region Carga de datos
+
+    // Cargar lista de llaves
     useEffect(() => {
         const getKeys = async () => {
             const data = await getKeysData()
@@ -115,6 +122,19 @@ const useKey = () => {
 
         getKeys()
     }, [])
+
+    // Cargar datos de llave
+    useEffect(() => {
+        const getKey = async() => {
+            if(id) {
+                const data = await getKeyData(id)
+                setKeyData(data)
+                setLoading(false)
+            }
+        }
+        
+        getKey()
+    }, [id])
 
     return {
         keys,

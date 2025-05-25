@@ -22,11 +22,12 @@ const FormKey = ({ onHide, open, keyData, onSubmit, processing }: FormKeyProps) 
     if (keyData) {
         reset({
             name: keyData.name || "",
-            // Agrega otros campos si es necesario
+            production: true
         });
     } else {
         reset({
-            name: "", // Deberías también resetear el campo cuando no haya `keyData`
+            name: "",
+            production: true
         });
     }
 }, [keyData, reset]);
@@ -55,6 +56,7 @@ const FormKey = ({ onHide, open, keyData, onSubmit, processing }: FormKeyProps) 
           <Field
             id={keyData ? `inpName_${keyData.id}` : "inpName"}
             required
+            maxLength={10}
             placeholder="Asigna un nombre para identificar la llave"
             {...register("name", { required: true })}
             error={errors.name?.type === "required" ? "Este campo es obligatorio" : undefined}

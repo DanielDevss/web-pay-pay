@@ -1,39 +1,29 @@
-import { TailwindColor } from "@/types/others"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
-import clsx from "clsx"
 import { ReactNode } from "react"
 
 type StatCardProps = {
     title?: string
     children: ReactNode
     description?: string
-    color?: TailwindColor
     icon?:  React.ComponentType<React.SVGProps<SVGSVGElement>>
 }
 
-const StatCard = ({ title, children, description, color, icon : Icon }: StatCardProps) => {
-
-    const colorGlass = color ? `!text-${color}-500` : ''
+const StatCard = ({ title, children, description, icon : Icon }: StatCardProps) => {
 
     return (
-        <Card className={clsx(color ? `border-b-4 border-b-${color}-500 text-end` : `border-b-4 text-end`)}>
-            {title && (
-                <CardHeader>
-                    <CardTitle>{title}</CardTitle>
-                </CardHeader>
-            )}
-            <CardContent className="flex justify-between items-center">
-                {Icon && <div><Icon height={34} width={34} className={`text-${color}-500 opacity-40`} /></div>}
-                <div className="flex-1">
-                    <p className="text-3xl">{children}</p>
-                    {description && (
-                        <CardDescription className={colorGlass}>
-                            {description}
-                        </CardDescription>
-                    )}
+        <div className="border rounded-lg p-3 flex">
+            <div className="flex-1">
+                <h4>{title}</h4>
+                <div className="text-lg">
+                    {children}
                 </div>
-            </CardContent>
-        </Card>
+                <p className="opacity-40">{description}</p>
+            </div>
+            {Icon && (
+                <div className="opacity-40">
+                    <Icon />
+                </div>
+            )}
+        </div>
     )
 }
 
