@@ -9,10 +9,11 @@ type resultKeyData = {
     data: KeyDataType
 }
 
-export const getKeysData = async () => {
+export const getKeysData = async (production=true) => {
+    const endpoint = production ? 'keys' : 'keys/dev'
     try {
         const result : resultKeysData | null = await fetching({
-            endpoint: "keys",
+            endpoint,
             credentials: true,
         })
         return result?.data || null

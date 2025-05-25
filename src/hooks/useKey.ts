@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
-const useKey = () => {
+const useKey = (production=true) => {
 
     const [keys, setKeys] = useState<KeyDataType[] | null>(null);
     const [loading, setLoading] = useState(true)
@@ -115,13 +115,13 @@ const useKey = () => {
     // Cargar lista de llaves
     useEffect(() => {
         const getKeys = async () => {
-            const data = await getKeysData()
+            const data = await getKeysData(production)
             setKeys(data)
             setLoading(false)
         }
 
         getKeys()
-    }, [])
+    }, [production])
 
     // Cargar datos de llave
     useEffect(() => {

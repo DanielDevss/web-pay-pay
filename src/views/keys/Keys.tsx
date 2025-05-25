@@ -8,6 +8,7 @@ import EmptyData from "@/components/EmptyData"
 import Loading from "@/components/Loading"
 import Header from "@/components/Header"
 import Divider from "@/components/Divider"
+import KeyDevInfo from "./partials/KeyDevInfo"
 
 const Keys = () => {
 
@@ -61,6 +62,8 @@ const Keys = () => {
 
       <section className="mt-10">
         <Divider text="Clave de acceso para desarrollo" />
+
+        <KeyDevInfo />
       </section>
 
 

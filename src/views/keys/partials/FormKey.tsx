@@ -38,7 +38,7 @@ const FormKey = ({ onHide, open, keyData, onSubmit, processing }: FormKeyProps) 
   };
 
   const onFormSubmit = async (data: KeyFormType) => {
-    await onSubmit(data);
+    await onSubmit({...data});
     reset();
   };
 
