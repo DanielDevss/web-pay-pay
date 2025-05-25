@@ -21,7 +21,7 @@ export const paths = [
         childs: [
             {
                 label: "Clientes",
-                path: "/administrador/historial-de-pagos",
+                path: "/administrador/clientes",
                 icon: Users
             },
         ],
@@ -36,7 +36,7 @@ export const paths = [
             },
             {
                 label: "Registros de errores",
-                path: "/administrador/llaves",
+                path: "/administrador/registro-de-errores",
                 icon: Flame
             },
         ],
@@ -51,7 +51,7 @@ export const paths = [
             },
             {
                 label: "Dispositivos",
-                path: "/administrador/perfil",
+                path: "/administrador/dispositivos",
                 icon: ShieldAlert
             },
         ]

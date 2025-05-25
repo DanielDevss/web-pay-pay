@@ -7,6 +7,7 @@ import AlertDelete from "./partials/AlertDelete"
 import EmptyData from "@/components/EmptyData"
 import Loading from "@/components/Loading"
 import Header from "@/components/Header"
+import Divider from "@/components/Divider"
 
 const Keys = () => {
 
@@ -40,19 +41,28 @@ const Keys = () => {
         </Button>
       </Header>
 
-      {keys && keys.length > 0 ? (
-        <DataTable
-          data={keys!}
-          columns={columns}
-          placeholder="Buscar proyecto . . ."
-        />
-      ) : (
-        <EmptyData
-          text="No se encontró ninguna llave registrada en la base de datos. ¿Deseas agregar una?"
-          onAction={handleOpenCreate}
-          actionLabel="Generar una llave"
-        />
-      )}
+      <section>
+        <Divider text="Claves de acceso en productivo" />
+
+        {keys && keys.length > 0 ? (
+          <DataTable
+            data={keys!}
+            columns={columns}
+            placeholder="Buscar proyecto . . ."
+          />
+        ) : (
+          <EmptyData
+            text="No se encontró ninguna llave registrada en la base de datos. ¿Deseas agregar una?"
+            onAction={handleOpenCreate}
+            actionLabel="Generar una llave"
+          />
+        )}
+      </section>
+
+      <section className="mt-10">
+        <Divider text="Clave de acceso para desarrollo" />
+      </section>
+
 
       <AlertDelete
         keyData={keyData}

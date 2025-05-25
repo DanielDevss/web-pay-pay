@@ -9,7 +9,7 @@ const FormCheckout = () => {
     if (data?.status !== "requires_payment_method") return <div>Checkout no disponible</div>
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-md">
+        <form onSubmit={handleSubmit} className="max-w-md font-sans">
 
             <div className="bg-white flex flex-col gap-4 rounded-md shadow-lg">
 
@@ -18,12 +18,19 @@ const FormCheckout = () => {
                     <p className="font-light text-zinc-400">Ingresa tus datos para completar la compra</p>
                 </div>
 
-                <div className="px-5 py-3 border-t-zinc-100">
+                <div id="card-element" className="px-5 py-3 border-t-zinc-100 flex flex-col gap-2">
 
-                    <CardElement className="px-5 py-4 border border-zinc-300 transition hover:border-zinc-400 rounded-md" />
+                    {/* Formulario de pago */}
+                    
+                    <CardElement onReady={(e) => console.log(e)} options={{style: {base:{fontFamily: 'sans-serif', fontSize: '16px'}}, disableLink: true}} className="px-5 py-4 border border-zinc-300 transition hover:border-zinc-400 rounded-md" />
                     {error && <small className="text-red-500 text-sm text-center block mt-1">{error}</small>}
 
+                    {/* Información del cliente */}
+                    {/* <input className="px-5 py-3 border rounded-lg w-full border-t-zinc-100 placeholder:text-zinc-500" type="text" placeholder="Nombre completo de propietario" name="owner" />
+                    <input className="px-5 py-3 border rounded-lg w-full border-t-zinc-100 placeholder:text-zinc-500" type="email" placeholder="Correo electrónico" name="email" /> */}
                 </div>
+
+
 
                 <div className="flex flex-col gap-2 px-5 font-medium">
                     <button 

@@ -16,6 +16,9 @@ import Payment from "@/views/payments/Payment"
 import { useEffect } from "react"
 import ForgotPassword from "@/views/guest/ForgotPassword"
 import PasswordReset from "@/views/guest/PasswordReset"
+import Devices from "@/views/devices/Devices"
+import Customers from "@/views/Customers/Customers"
+import ErrorLogs from "@/views/ErrorLogs/ErrorLogs"
 
 const AppRoutes = () => {
 
@@ -47,6 +50,9 @@ const AppRoutes = () => {
           <Route element={<Keys />} path="llaves" />
           <Route element={<Payments />} path="historial-de-pagos" />
           <Route element={<Payment />} path="historial-de-pagos/:id" />
+          <Route element={<Devices />} path="dispositivos" />
+          <Route element={<Customers />} path="clientes" />
+          <Route element={<ErrorLogs />} path="registro-de-errores" />
         </Route>
 
       {/* Checkout */}
